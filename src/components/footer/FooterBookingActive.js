@@ -3,22 +3,17 @@ import { StyleSheet, Image } from "react-native";
 
 import { Footer, FooterTab, Button, Text } from "native-base";
 
-export default class FooterServiceActive extends Component {
+export default class FooterBookingActive extends Component {
     render() {
         return (
             <Footer style={styles.footer}>
                 <FooterTab style={styles.backgroundFooter}>
-                    <Button
-                        vertical
-                        onPress={() =>
-                            this.props.navigation.navigate("Booking")
-                        }
-                    >
+                    <Button vertical active style={styles.active}>
                         <Image
                             style={styles.imageFooterCalendar}
-                            source={require("../../images/footer/bookingBW.png")}
+                            source={require("../../images/footer/bookingC.png")}
                         />
-                        <Text style={styles.footerText}>Booking</Text>
+                        <Text style={styles.activeText}>Booking</Text>
                     </Button>
                     <Button
                         vertical
@@ -30,12 +25,17 @@ export default class FooterServiceActive extends Component {
                         />
                         <Text style={styles.footerText}>Past</Text>
                     </Button>
-                    <Button vertical active style={styles.active}>
+                    <Button
+                        vertical
+                        onPress={() =>
+                            this.props.navigation.navigate("Services")
+                        }
+                    >
                         <Image
                             style={styles.imageFooterServices}
-                            source={require("../../images/footer/servicesC.png")}
+                            source={require("../../images/footer/servicesBW.png")}
                         />
-                        <Text style={styles.activeText}>Services</Text>
+                        <Text style={styles.footerText}>Services</Text>
                     </Button>
                     <Button
                         vertical

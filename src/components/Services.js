@@ -19,6 +19,9 @@ import {
 import FooterServiceActive from "./footer/FooterServiceActive";
 
 export default class Services extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <Container>
@@ -36,7 +39,9 @@ export default class Services extends Component {
                         <Card style={styles.cardServices}>
                             <CardItem>
                                 <Left>
-                                <Thumbnail source={require("../images/services/cleaning.png")} />
+                                    <Thumbnail
+                                        source={require("../images/services/cleaning.png")}
+                                    />
                                     <Body>
                                         <Text>Cleaning Services</Text>
                                         <Text note>
@@ -66,7 +71,9 @@ export default class Services extends Component {
                         <Card style={styles.cardServices}>
                             <CardItem>
                                 <Left>
-                                <Thumbnail source={require("../images/services/painting.png")} />
+                                    <Thumbnail
+                                        source={require("../images/services/painting.png")}
+                                    />
                                     <Body>
                                         <Text>Painting Services</Text>
                                         <Text note>
@@ -193,7 +200,7 @@ export default class Services extends Component {
                         </View>
                     </View> */}
                 </Content>
-                <FooterServiceActive />
+                <FooterServiceActive navigation={this.props.navigation} />
             </Container>
         );
     }
@@ -276,9 +283,10 @@ const styles = StyleSheet.create({
         color: "#767676",
         fontSize: 24
     },
-   /*  cardServices: {
+    /*  cardServices: {
         padding: 5
-    }, */ 
+    }, */
+
     content: {
         padding: 5
     }

@@ -6,6 +6,9 @@ import { Container, Header, Content, Text, Body, Title } from "native-base";
 import FooterServiceActive from "./footer/FooterServiceActive";
 
 export default class PaintingServices extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <Container>
@@ -87,7 +90,7 @@ export default class PaintingServices extends Component {
                         </View>
                     </TouchableOpacity>
                 </Content>
-                <FooterServiceActive />
+                <FooterServiceActive navigation={this.props.navigation} />
             </Container>
         );
     }

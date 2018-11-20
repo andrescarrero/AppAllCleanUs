@@ -3,7 +3,7 @@ import { StyleSheet, Image } from "react-native";
 
 import { Footer, FooterTab, Button, Text } from "native-base";
 
-export default class FooterServiceActive extends Component {
+export default class FooterAccountActive extends Component {
     render() {
         return (
             <Footer style={styles.footer}>
@@ -30,24 +30,24 @@ export default class FooterServiceActive extends Component {
                         />
                         <Text style={styles.footerText}>Past</Text>
                     </Button>
-                    <Button vertical active style={styles.active}>
-                        <Image
-                            style={styles.imageFooterServices}
-                            source={require("../../images/footer/servicesC.png")}
-                        />
-                        <Text style={styles.activeText}>Services</Text>
-                    </Button>
                     <Button
                         vertical
                         onPress={() =>
-                            this.props.navigation.navigate("Account")
+                            this.props.navigation.navigate("Services")
                         }
                     >
                         <Image
                             style={styles.imageFooterServices}
-                            source={require("../../images/footer/accountBW.png")}
+                            source={require("../../images/footer/servicesBW.png")}
                         />
-                        <Text style={styles.footerText}>Account</Text>
+                        <Text style={styles.footerText}>Services</Text>
+                    </Button>
+                    <Button vertical active style={styles.active}>
+                        <Image
+                            style={styles.imageFooterServices}
+                            source={require("../../images/footer/accountC.png")}
+                        />
+                        <Text style={styles.activeText}>Account</Text>
                     </Button>
                     <Button vertical>
                         <Image

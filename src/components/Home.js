@@ -20,7 +20,10 @@ import {
 
 import Services from "./Services";
 import CleaningServices from "./CleaningServices";
-import PaintingServices from "./PaintingServices"
+import PaintingServices from "./PaintingServices";
+import Booking from "./Booking";
+import Past from "./Past";
+import Account from "./Account";
 
 import { createStackNavigator } from "react-navigation";
 
@@ -98,7 +101,10 @@ const Nav = createStackNavigator(
         Home: { screen: Home },
         Services: { screen: Services },
         CleaningServices: { screen: CleaningServices },
-        PaintingServices: {screen: PaintingServices}
+        PaintingServices: { screen: PaintingServices },
+        Booking: { screen: Booking },
+        Past: { screen: Past },
+        Account: { screen: Account }
     },
     {
         initialRouteName: "Home",
