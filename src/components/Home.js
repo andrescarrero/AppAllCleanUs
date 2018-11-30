@@ -24,6 +24,10 @@ import PaintingServices from "./PaintingServices";
 import Booking from "./Booking";
 import Past from "./Past";
 import Account from "./Account";
+import HomeCleaning from "./ServiceDetails/homeCleaning";
+import OfficeCleaning from "./ServiceDetails/officeCleaning";
+import DeepCleaning from "./ServiceDetails/deepCleaning";
+import GarageCleaning from "./ServiceDetails/garageCleaning";
 
 import { createStackNavigator } from "react-navigation";
 
@@ -104,7 +108,11 @@ const Nav = createStackNavigator(
         PaintingServices: { screen: PaintingServices },
         Booking: { screen: Booking },
         Past: { screen: Past },
-        Account: { screen: Account }
+        Account: { screen: Account },
+        HomeCleaning: { screen: HomeCleaning },
+        OfficeCleaning: { screen: OfficeCleaning },
+        DeepCleaning: { screen: DeepCleaning },
+        GarageCleaning: { screen: GarageCleaning }
     },
     {
         initialRouteName: "Home",

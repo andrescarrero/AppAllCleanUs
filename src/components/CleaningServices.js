@@ -35,7 +35,13 @@ export default class CleaningServices extends Component {
                     </Body>
                 </Header>
                 <Content>
-                    <TouchableOpacity onPress={() => null}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            this.props.navigation.navigate("HomeCleaning", {
+                                navigation: this.props.navigation
+                            })
+                        }
+                    >
                         <View style={styles.list}>
                             <View>
                                 <Image
@@ -53,7 +59,13 @@ export default class CleaningServices extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => null}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            this.props.navigation.navigate("OfficeCleaning", {
+                                navigation: this.props.navigation
+                            })
+                        }
+                    >
                         <View style={styles.list}>
                             <View>
                                 <Image
@@ -71,7 +83,13 @@ export default class CleaningServices extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => null}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            this.props.navigation.navigate("DeepCleaning", {
+                                navigation: this.props.navigation
+                            })
+                        }
+                    >
                         <View style={styles.list}>
                             <View>
                                 <Image
@@ -89,7 +107,13 @@ export default class CleaningServices extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => null}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            this.props.navigation.navigate("GarageCleaning", {
+                                navigation: this.props.navigation
+                            })
+                        }
+                    >
                         <View style={styles.list}>
                             <View>
                                 <Image

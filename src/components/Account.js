@@ -25,9 +25,14 @@ export default class Account extends Component {
     render() {
         return (
             <Container>
-                <Content style={styles.content}>
+                {/* <Content style={styles.content}>
                     <Text>Esto es probando Account</Text>
-                </Content>
+                </Content> */}
+                <View style={styles.center}>
+                        <Image style={styles.item}
+                            source={require("../images/construccion3.gif")}
+                        />
+                    </View>
                 <FooterAccountActive navigation={this.props.navigation} />
             </Container>
         );
@@ -37,5 +42,13 @@ export default class Account extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    }
+    },
+    center: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    item: {
+        alignSelf: "center"
+    },
 });

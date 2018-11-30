@@ -53,7 +53,7 @@ export default class Services extends Component {
                             </CardItem>
                             <CardItem cardBody>
                                 <Image
-                                    source={require("../images/services/b-cleaning.png")}
+                                    source={require("../images/services/3-cleaning.png")}
                                     style={{
                                         height: 190,
                                         width: null,
@@ -85,7 +85,7 @@ export default class Services extends Component {
                             </CardItem>
                             <CardItem cardBody>
                                 <Image
-                                    source={require("../images/services/b-painting.png")}
+                                    source={require("../images/services/3-painting.png")}
                                     style={{
                                         height: 190,
                                         width: null,
