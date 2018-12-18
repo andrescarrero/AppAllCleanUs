@@ -35,7 +35,12 @@ export default class DeepCleaning extends Component {
                     </Body>
                 </Header>
                 <Content>
-                    <Text>Prueba</Text>
+                    <View style={styles.center}>
+                        <Image
+                            style={styles.item}
+                            source={require("../../images/construccion3.gif")}
+                        />
+                    </View>
                 </Content>
                 <FooterServiceActive navigation={this.props.navigation} />
             </Container>
@@ -78,5 +83,13 @@ const styles = StyleSheet.create({
         height: 40,
         width: 40,
         alignItems: "flex-start"
+    },
+    center: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    item: {
+        alignSelf: "center"
     }
 });

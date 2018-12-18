@@ -1,0 +1,156 @@
+AIzaSyAr_VY2UL9akR2HFBXbTiEZ2fdeFUxS26Y
+
+<Form>
+                        <Item inlineLabel>
+                            <Label>Beds </Label>
+                            <Picker
+                                mode="dropdown"
+                                iosHeader="Select number"
+                                iosIcon={<Icon name="ios-arrow-down-outline" />}
+                                style={{ flex: 1 }}
+                                selectedValue={this.state.bed}
+                                onValueChange={this.onValueChangeBed.bind(this)}
+                            >
+                                <Picker.Item label="00" value="0" />
+                                <Picker.Item label="01" value="1" />
+                                <Picker.Item label="02" value="2" />
+                                <Picker.Item label="03" value="3" />
+                                <Picker.Item label="04" value="4" />
+                                <Picker.Item label="05" value="5" />
+                            </Picker>
+                        </Item>
+                        <Item inlineLabel>
+                            <Label>Baths</Label>
+                            <Picker
+                                mode="dropdown"
+                                iosHeader="Select number"
+                                iosIcon={<Icon name="ios-arrow-down-outline" />}
+                                style={{ flex: 1 }}
+                                selectedValue={this.state.bath}
+                                onValueChange={this.onValueChangeBath.bind(
+                                    this
+                                )}
+                            >
+                                <Picker.Item label="00" value="0" />
+                                <Picker.Item label="01" value="1" />
+                                <Picker.Item label="02" value="2" />
+                                <Picker.Item label="03" value="3" />
+                                <Picker.Item label="04" value="4" />
+                            </Picker>
+                        </Item>
+                        <Item inlineLabel>
+                            <Label>Date </Label>
+                            <DatePicker
+                                style={{ width: 300 }}
+                                date={this.state.date}
+                                mode="datetime"
+                                placeholder="select date"
+                                format="YYYY-MM-DD HH:mm:ss"
+                                minDate="2018-12-03"
+                                maxDate="2019-01-31"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                customStyles={{
+                                    dateInput: {
+                                        marginLeft: 0,
+                                        borderWidth: 0
+                                    }
+                                    // ... You can check the source to find the other keys.
+                                }}
+                                onDateChange={date => {
+                                    this.setState({ date: date });
+                                }}
+                            />
+                        </Item>
+                        <View style={styles.cuponContainer}>
+                            <View style={styles.textCenter}>
+                                <Text style={styles.textCupon}>Cupon!</Text>
+                            </View>
+                            <View style={styles.textCenter}>
+                                <Item rounded style={styles.inputCupon}>
+                                    <Input placeholder="Enter cupon code here!        " />
+                                </Item>
+                            </View>
+                        </View>
+                        <View style={styles.discountContainer}>
+                            <View style={styles.textCenter}>
+                                <Text style={styles.textCupon}>Discount</Text>
+                            </View>
+                            <View style={styles.textCenter}>
+                                <Text style={styles.textDiscount}>
+                                    this service does not have a current
+                                    discount
+                                </Text>
+                            </View>
+                        </View>
+                        {/*  <View style={styles.serviceContainer}>
+                            <View style={styles.textCenter}>
+                                <Text style={styles.textCupon}>Service</Text>
+                            </View>
+                            <View style={styles.textCenter}>
+                                <Text style={styles.textDiscount}>
+                                    Home Cleaning - 3 Beds 2 Baths
+                                </Text>
+                                <Text style={styles.textDiscount}>
+                                    Direction: 8th Aveniu, apt 82, 2007
+                                </Text>
+                            </View>
+                        </View> */}
+                        <View style={styles.totalContainer}>
+                            <View style={styles.columnContainer}>
+                                <View style={styles.textCenterTotalTitle}>
+                                    <Text style={styles.textTotal}>
+                                        SubTotal:{"  "}
+                                    </Text>
+                                </View>
+                                <View style={styles.textCenterTotalNumber}>
+                                    <Text style={styles.textTotalNumber}>
+                                        50$
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.columnContainer}>
+                                <View style={styles.textCenterTotalTitle}>
+                                    <Text style={styles.textTotal}>
+                                        Discount:{"  "}
+                                    </Text>
+                                </View>
+                                <View style={styles.textCenterTotalNumber}>
+                                    <Text style={styles.textTotalNumber}>
+                                        50$
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.columnContainer}>
+                                <View style={styles.textCenterTotalTitle}>
+                                    <Text style={styles.textTotal}>
+                                        Cupon!:{"  "}
+                                    </Text>
+                                </View>
+                                <View style={styles.textCenterTotalNumber}>
+                                    <Text style={styles.textTotalNumber}>
+                                        50$
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.columnContainer}>
+                                <View style={styles.textCenterTotalTitle}>
+                                    <Text style={styles.textTotalSum}>
+                                        Total:{"  "}
+                                    </Text>
+                                </View>
+                                <View style={styles.textCenterTotalNumber}>
+                                    <Text style={styles.textTotalNumberSum}>
+                                        50$
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        <TouchableOpacity onPress={null}>
+                            <View style={styles.loginButton}>
+                                <View style={styles.buttonText}>
+                                    <Text style={styles.loginText}>Next</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </Form>

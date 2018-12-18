@@ -44,7 +44,7 @@ export default class Booking extends Component {
                                 <Thumbnail
                                     style={styles.imageContentCleaning}
                                     source={require("../images/services/cleaning/homeCleaning.png")}
-                                />                            
+                                />
                             </View>
                             <View>
                                 <View style={styles.row}>
@@ -105,7 +105,7 @@ export default class Booking extends Component {
                                 <Thumbnail
                                     style={styles.imageContentCleaning}
                                     source={require("../images/services/painting/paintingServices.png")}
-                                />                            
+                                />
                             </View>
                             <View>
                                 <View style={styles.row}>
@@ -159,7 +159,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/painting/paintingFrontDoor.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -213,7 +213,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/cleaning/garageCleaning.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -266,7 +266,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/painting/paintingGarage.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -320,7 +320,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/cleaning/officeCleaning.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -374,7 +374,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/cleaning/homeCleaning.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -428,7 +428,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/painting/paintingServices.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -482,7 +482,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/cleaning/garageCleaning.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -536,7 +536,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/painting/paintingFrontDoor.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -590,7 +590,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/cleaning/deepCleaning.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -644,7 +644,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/painting/paintingServices.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -698,7 +698,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/painting/paintingFrontDoor.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>
@@ -752,7 +752,7 @@ export default class Booking extends Component {
                             <Thumbnail
                                 style={styles.imageContentCleaning}
                                 source={require("../images/services/cleaning/homeCleaning.png")}
-                            />                        
+                            />
                         </View>
                         <View>
                             <View style={styles.row}>

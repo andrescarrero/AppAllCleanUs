@@ -29,10 +29,11 @@ export default class Account extends Component {
                     <Text>Esto es probando Account</Text>
                 </Content> */}
                 <View style={styles.center}>
-                        <Image style={styles.item}
-                            source={require("../images/construccion3.gif")}
-                        />
-                    </View>
+                    <Image
+                        style={styles.item}
+                        source={require("../images/construccion3.gif")}
+                    />
+                </View>
                 <FooterAccountActive navigation={this.props.navigation} />
             </Container>
         );
@@ -46,9 +47,9 @@ const styles = StyleSheet.create({
     center: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
     },
     item: {
         alignSelf: "center"
-    },
+    }
 });
