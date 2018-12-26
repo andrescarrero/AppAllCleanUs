@@ -35,7 +35,16 @@ export default class PaintingServices extends Component {
                     </Body>
                 </Header>
                 <Content>
-                    <TouchableOpacity onPress={() => null}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            this.props.navigation.navigate(
+                                "PaintingServices2",
+                                {
+                                    navigation: this.props.navigation
+                                }
+                            )
+                        }
+                    >
                         <View style={styles.list}>
                             <View>
                                 <Image
@@ -53,7 +62,16 @@ export default class PaintingServices extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => null}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            this.props.navigation.navigate(
+                                "PaintingFrontDoor",
+                                {
+                                    navigation: this.props.navigation
+                                }
+                            )
+                        }
+                    >
                         <View style={styles.list}>
                             <View>
                                 <Image

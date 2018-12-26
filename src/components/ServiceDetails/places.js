@@ -12,11 +12,6 @@ import Total from "./total";
 export default class HomeCleaning extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            bed: "0",
-            bath: "0",
-            date: "2016-05-15"
-        };
     }
 
     render() {
@@ -46,7 +41,7 @@ export default class HomeCleaning extends Component {
                 }}
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
-                    key: "AIzaSyAr_VY2UL9akR2HFBXbTiEZ2fdeFUxS26Y",
+                    key: "yourkey",
                     language: "en", // language of the results
                     types: "geocode" // default: 'geocode'
                 }}
@@ -64,7 +59,7 @@ export default class HomeCleaning extends Component {
                 GoogleReverseGeocodingQuery={{
                     // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
                     // components: 'locality'
-                    key: "AIzaSyAr_VY2UL9akR2HFBXbTiEZ2fdeFUxS26Y",
+                    key: "yourkey",
                     language: "en" // language of the results
                 }}
                 GooglePlacesSearchQuery={
