@@ -41,7 +41,7 @@ export default class HomeCleaning extends Component {
                 }}
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
-                    key: "yourkey",
+                    key: "AIzaSyBNW7PRJl9F8bEf2LUSySf6gLRWni7epiw",
                     language: "en", // language of the results
                     types: "geocode" // default: 'geocode'
                 }}
@@ -59,7 +59,7 @@ export default class HomeCleaning extends Component {
                 GoogleReverseGeocodingQuery={{
                     // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
                     // components: 'locality'
-                    key: "yourkey",
+                    key: "AIzaSyBNW7PRJl9F8bEf2LUSySf6gLRWni7epiw",
                     language: "en" // language of the results
                 }}
                 GooglePlacesSearchQuery={

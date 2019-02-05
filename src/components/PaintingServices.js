@@ -89,7 +89,7 @@ export default class PaintingServices extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => null}>
+                    {/* <TouchableOpacity onPress={() => null}>
                         <View style={styles.list}>
                             <View>
                                 <Image
@@ -106,7 +106,7 @@ export default class PaintingServices extends Component {
                                 </Text>
                             </View>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </Content>
                 <FooterServiceActive navigation={this.props.navigation} />
             </Container>

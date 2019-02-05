@@ -5,7 +5,8 @@ import {
     View,
     Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    Keyboard
 } from "react-native";
 import {
     Container,
@@ -37,6 +38,25 @@ import { createStackNavigator } from "react-navigation";
 const { width, height } = Dimensions.get("window");
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userEmail: "",
+            userPassword: ""
+        };
+    }
+
+    login = () => {
+        const { userEmail, userPassword } = this.state;
+        //alert(userEmail);
+
+        
+
+        //alert("aqui estamos");
+
+        Keyboard.dismiss();
+    };
+
     render() {
         return (
             <Container>
@@ -48,11 +68,20 @@ class Home extends Component {
                     <Form>
                         <Item inlineLabel>
                             <Label style={styles.textLabel}>Username</Label>
-                            <Input />
+                            <Input
+                                onChangeText={userEmail =>
+                                    this.setState({ userEmail })
+                                }
+                            />
                         </Item>
                         <Item inlineLabel>
                             <Label style={styles.textLabel}>Password</Label>
-                            <Input secureTextEntry={true} />
+                            <Input
+                                onChangeText={userPassword =>
+                                    this.setState({ userPassword })
+                                }
+                                secureTextEntry={true}
+                            />
                         </Item>
                     </Form>
                     <View style={styles.passHelp}>

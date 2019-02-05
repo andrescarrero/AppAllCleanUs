@@ -8,6 +8,10 @@ export default class total extends Component {
         super(props);
     }
 
+    showData(){
+        alert(this.props.total)
+    }
+
     render() {
         return (
             <View>
@@ -38,9 +42,7 @@ export default class total extends Component {
                                 SubTotal:{"  "}
                             </Text>
                         </View>
-                        <View style={styles.textCenterTotalNumber}>
-                            <Text style={styles.textTotalNumber}>0$</Text>
-                        </View>
+                        <Text style={styles.textTotalNumber}>0$</Text>
                     </View>
                     <View style={styles.columnContainer}>
                         <View style={styles.textCenterTotalTitle}>
@@ -48,30 +50,24 @@ export default class total extends Component {
                                 Discount:{"  "}
                             </Text>
                         </View>
-                        <View style={styles.textCenterTotalNumber}>
-                            <Text style={styles.textTotalNumber}>0$</Text>
-                        </View>
+                        <Text style={styles.textTotalNumber}>0$</Text>
                     </View>
                     <View style={styles.columnContainer}>
                         <View style={styles.textCenterTotalTitle}>
                             <Text style={styles.textTotal}>Cupon!:{"  "}</Text>
                         </View>
-                        <View style={styles.textCenterTotalNumber}>
-                            <Text style={styles.textTotalNumber}>0$</Text>
-                        </View>
+                        <Text style={styles.textTotalNumber}>0$</Text>
                     </View>
                     <View style={styles.columnContainer}>
                         <View style={styles.textCenterTotalTitle}>
                             <Text style={styles.textTotalSum}>
-                                Total:{"  "}
+                                Total: {" "}
                             </Text>
                         </View>
-                        <View style={styles.textCenterTotalNumber}>
-                            <Text style={styles.textTotalNumberSum}>0$</Text>
-                        </View>
+                        <Text style={styles.textTotalNumberSum}>{this.props.total}$</Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={null}>
+                <TouchableOpacity onPress={this.showData.bind(this)}>
                     <View style={styles.loginButton}>
                         <View style={styles.buttonText}>
                             <Text style={styles.loginText}>Next</Text>
@@ -127,14 +123,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         height: 40,
-        backgroundColor: "#b1b8c1",
+        backgroundColor: "#fff",
         color: "white",
         marginTop: 50
     },
     totalContainer: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: "#b1b8c1",
+        backgroundColor: "#fff",
         color: "black",
         paddingTop: 15,
         marginLeft: 10,
@@ -144,12 +140,10 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     textCenterTotalTitle: {
-        flex: 4,
+        flex: 1,
         alignItems: "flex-end"
     },
-    textCenterTotalNumber: {
-        flex: 3
-    },
+
     textTotal: {
         fontSize: 20,
         color: "#6b6b6b",
@@ -157,7 +151,7 @@ const styles = StyleSheet.create({
     },
     textTotalNumber: {
         fontSize: 20,
-        color: "white",
+        color: "#6b6b6b",
         fontWeight: "bold"
     },
     textTotalSum: {

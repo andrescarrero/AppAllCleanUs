@@ -83,7 +83,7 @@ export default class CleaningServices extends Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() =>
                             this.props.navigation.navigate("DeepCleaning", {
                                 navigation: this.props.navigation
@@ -106,7 +106,7 @@ export default class CleaningServices extends Component {
                                 </Text>
                             </View>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity
                         onPress={() =>
                             this.props.navigation.navigate("GarageCleaning", {
