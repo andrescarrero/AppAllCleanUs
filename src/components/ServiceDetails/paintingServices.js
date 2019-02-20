@@ -25,6 +25,7 @@ import FooterServiceActive from "./../footer/FooterServiceActive";
 import DatePicker from "react-native-datepicker";
 import Total from "./total";
 import Places from "./places";
+import Datejs from "./../../external/date"
 
 var tomorrow = Date.parse("tomorrow").toString("MM-dd-yyyy");
 var maxDate = Date.parse("+1year").toString("MM-dd-yyyy");
@@ -222,7 +223,7 @@ export default class PaintingServices2 extends Component {
                                     }}
                                 />
                             </Item>
-                            <Total total={this.state.propsTotal} />
+                            <Total total={this.state.propsTotal} date={this.state.date} service={6} />
                         </Form>
                     </Content>
                     <FooterServiceActive navigation={this.props.navigation} />

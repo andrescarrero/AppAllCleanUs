@@ -24,9 +24,10 @@ import FooterServiceActive from "./../footer/FooterServiceActive";
 import DatePicker from "react-native-datepicker";
 import Total from "./total";
 import Places from "./places";
+import Datejs from "./../../external/date";
 
-var tomorrow = Date.parse('tomorrow').toString("MM-dd-yyyy")
-var maxDate = Date.parse('+1year').toString("MM-dd-yyyy")
+var tomorrow = Date.parse("tomorrow").toString("MM-dd-yyyy");
+var maxDate = Date.parse("+1year").toString("MM-dd-yyyy");
 export default class HomeCleaning extends Component {
     constructor(props) {
         super(props);
@@ -114,8 +115,6 @@ export default class HomeCleaning extends Component {
         this.setState({
             propsTotal: price.precio
         });
-
-        console.log("manana " + tomorrow);
     }
 
     /**
@@ -237,7 +236,7 @@ export default class HomeCleaning extends Component {
                                     }}
                                 />
                             </Item>
-                            <Total total={this.state.propsTotal} />
+                            <Total total={this.state.propsTotal} date={this.state.date} service={1} />
                         </Form>
                     </Content>
                     <FooterServiceActive navigation={this.props.navigation} />

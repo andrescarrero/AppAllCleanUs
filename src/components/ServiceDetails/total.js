@@ -6,10 +6,242 @@ import { Text, Item, Input } from "native-base";
 export default class total extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            cuponText: "",
+            cuponId: null,
+            cuponTotalPorc: null,
+            cuponTotalMont: null,
+            discountText: "This service does not have a current discount",
+            discountId: null,
+            discountTotalPorc: null,
+            discountTotalMont: null,
+            //Valores motrasdos en la vista
+            subtotalCalculate: this.props.total,
+            discountCalculate: 0,
+            cuponCalculate: 0,
+            totalCalculate: 0
+        };
     }
 
-    showData(){
-        alert(this.props.total)
+    /**
+     * Método que se encarga de revisar los valores previos con los actuales para determiar si actualiza algunas secciones del componente
+     * @param {propsPrevios} prevProps
+     * @param {*} prevState
+     */
+    componentDidUpdate(prevProps, prevState) {
+        // only update if the data has changed
+        if (prevProps.total !== this.props.total) {
+            this.consultarDescuento();
+            //this.setearTotal();
+        }
+
+        if (prevProps.date !== this.props.date) {
+            this.consultarCupon();
+            this.consultarDescuento();
+        }
+    }
+
+    /**
+     * Método que detecta el ingreso de texto en el input de cupón y ejecuta algunas acciones.
+     * @param {Valor del campo de texto} value
+     */
+    onchangeCuponText(value) {
+        //var string = value.toUpperCase();
+        this.setState(
+            { cuponText: value },
+            //Una vez se escribe el código del cupon, se procede a determinar si el cupón es válido
+            function() {
+                if (this.state.cuponText.length === 10) {
+                    this.consultarCupon();
+                }
+            }
+        );
+    }
+
+    //Seteo del total luego de descontar lo correspondiente a descuentos y cupones
+    setearTotal() {
+        this.setState({
+            subtotalCalculate: this.props.total,
+            totalCalculate: parseFloat(
+                this.props.total -
+                    this.state.discountCalculate -
+                    this.state.cuponCalculate
+            ).toFixed(2)
+        });
+    }
+
+    /**
+     *Método para consultar los posibles descuentos que pueda tener el producto
+     *
+     * @returns resultado de la búsqueda
+     * @memberof total
+     */
+    consultarDescuento() {
+        return fetch("http://192.168.2.104:8000/api/consultarDescuento", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                monto: this.props.total,
+                service: this.props.service,
+                date: this.props.date
+            })
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                if (typeof responseJson.Discount !== "undefined") {
+                    this.setState(
+                        {
+                            discountId: responseJson.Discount.id,
+                            discountTotalPorc:
+                                responseJson.Discount.descuento_porcentaje,
+                            discountTotalMont:
+                                responseJson.Discount.descuento_monto
+                        },
+                        function() {
+                            //Actualizamos la data a mostrar y recalculamos el total.
+                            if (this.state.discountTotalPorc == null) {
+                                this.setState(
+                                    {
+                                        discountCalculate: parseFloat(
+                                            responseJson.Discount
+                                                .descuento_monto
+                                        ).toFixed(2),
+                                        discountText:
+                                            "You have a discount of " +
+                                            responseJson.Discount
+                                                .descuento_monto +
+                                            "$"
+                                    },
+                                    function() {
+                                        this.setearTotal();
+                                    }
+                                );
+                            } else {
+                                this.setState(
+                                    {
+                                        discountCalculate: parseFloat(
+                                            this.props.total *
+                                                (responseJson.Discount
+                                                    .descuento_porcentaje /
+                                                    100)
+                                        ).toFixed(2),
+                                        discountText:
+                                            "You have a discount of " +
+                                            responseJson.Discount
+                                                .descuento_porcentaje +
+                                            "%"
+                                    },
+                                    function() {
+                                        this.setearTotal();
+                                    }
+                                );
+                            }
+                        }
+                    );
+                }
+                //En caso de que venga una alerta
+                if (typeof responseJson.Alerta !== "undefined") {
+                    this.setState(
+                        {
+                            discountId: null,
+                            discountTotalPorc: null,
+                            discountTotalMont: null,
+                            subtotalCalculate: this.props.total,
+                            discountCalculate: 0,
+                            totalCalculate: 0
+                        },
+                        function() {
+                            this.setearTotal();
+                        }
+                    );
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    /**
+     * Método que realizará la consulta del cupon según el servicio, la fecha y el código de cupon ingresado
+     */
+    consultarCupon() {
+        return fetch("http://192.168.2.104:8000/api/consultarCupon", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                cupon_code: this.state.cuponText,
+                service: this.props.service,
+                date: this.props.date
+            })
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                if (typeof responseJson.Cupon !== "undefined") {
+                    this.setState(
+                        {
+                            cuponId: responseJson.Cupon.id,
+                            cuponTotalPorc:
+                                responseJson.Cupon.descuento_porcentaje,
+                            cuponTotalMont: responseJson.Cupon.descuento_monto
+                        },
+                        function() {
+                            //Actualizamos la data a mostrar y recalculamos el total.
+                            if (this.state.cuponTotalPorc == null) {
+                                this.setState(
+                                    {
+                                        cuponCalculate: parseFloat(
+                                            responseJson.Cupon.descuento_monto
+                                        ).toFixed(2)
+                                    },
+                                    function() {
+                                        this.setearTotal();
+                                    }
+                                );
+                            } else {
+                                this.setState(
+                                    {
+                                        cuponCalculate: parseFloat(
+                                            this.props.total *
+                                                (responseJson.Cupon
+                                                    .descuento_porcentaje /
+                                                    100)
+                                        ).toFixed(2)
+                                    },
+                                    function() {
+                                        this.setearTotal();
+                                    }
+                                );
+                            }
+                        }
+                    );
+                }
+
+                if (typeof responseJson.Alerta !== "undefined") {
+                    this.setState(
+                        {
+                            cuponId: null,
+                            cuponTotalPorc: null,
+                            cuponTotalMont: null,
+                            cuponCalculate: 0,
+                            totalCalculate: 0,
+                            discountText:
+                                "This service does not have a current discount"
+                        },
+                        function() {
+                            this.setearTotal();
+                        }
+                    );
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     render() {
@@ -21,7 +253,12 @@ export default class total extends Component {
                     </View>
                     <View style={styles.textCenter}>
                         <Item rounded style={styles.inputCupon}>
-                            <Input placeholder="Enter cupon code here!        " />
+                            <Input
+                                placeholder="Enter cupon code here!        "
+                                value={this.state.cuponText}
+                                onChangeText={this.onchangeCuponText.bind(this)}
+                                maxLength={10}
+                            />
                         </Item>
                     </View>
                 </View>
@@ -31,7 +268,7 @@ export default class total extends Component {
                     </View>
                     <View style={styles.textCenter}>
                         <Text style={styles.textDiscount}>
-                            this service does not have a current discount
+                            {this.state.discountText}
                         </Text>
                     </View>
                 </View>
@@ -42,7 +279,9 @@ export default class total extends Component {
                                 SubTotal:{"  "}
                             </Text>
                         </View>
-                        <Text style={styles.textTotalNumber}>0$</Text>
+                        <Text style={styles.textTotalNumber}>
+                            {this.state.subtotalCalculate}$
+                        </Text>
                     </View>
                     <View style={styles.columnContainer}>
                         <View style={styles.textCenterTotalTitle}>
@@ -50,24 +289,28 @@ export default class total extends Component {
                                 Discount:{"  "}
                             </Text>
                         </View>
-                        <Text style={styles.textTotalNumber}>0$</Text>
+                        <Text style={styles.textTotalNumber}>
+                            -{this.state.discountCalculate}$
+                        </Text>
                     </View>
                     <View style={styles.columnContainer}>
                         <View style={styles.textCenterTotalTitle}>
                             <Text style={styles.textTotal}>Cupon!:{"  "}</Text>
                         </View>
-                        <Text style={styles.textTotalNumber}>0$</Text>
+                        <Text style={styles.textTotalNumber}>
+                            -{this.state.cuponCalculate}$
+                        </Text>
                     </View>
                     <View style={styles.columnContainer}>
                         <View style={styles.textCenterTotalTitle}>
-                            <Text style={styles.textTotalSum}>
-                                Total: {" "}
-                            </Text>
+                            <Text style={styles.textTotalSum}>Total: </Text>
                         </View>
-                        <Text style={styles.textTotalNumberSum}>{this.props.total}$</Text>
+                        <Text style={styles.textTotalNumberSum}>
+                            {this.state.totalCalculate}$
+                        </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={this.showData.bind(this)}>
+                <TouchableOpacity>
                     <View style={styles.loginButton}>
                         <View style={styles.buttonText}>
                             <Text style={styles.loginText}>Next</Text>

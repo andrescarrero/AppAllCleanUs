@@ -18,6 +18,7 @@ import FooterServiceActive from "./../footer/FooterServiceActive";
 import DatePicker from "react-native-datepicker";
 import Total from "./total";
 import Places from "./places";
+import Datejs from "./../../external/date"
 
 export default class PaintingServices2 extends Component {
     constructor(props) {
@@ -127,7 +128,7 @@ export default class PaintingServices2 extends Component {
                                 }}
                             />
                         </Item>
-                        <Total />
+                        <Total total={this.state.propsTotal} date={this.state.date} service={7}/>
                     </Form>
                 </Content>
                 <FooterServiceActive navigation={this.props.navigation} />
