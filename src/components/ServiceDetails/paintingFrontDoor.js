@@ -25,7 +25,7 @@ import FooterServiceActive from "./../footer/FooterServiceActive";
 import DatePicker from "react-native-datepicker";
 import Total from "./total";
 import Places from "./places";
-import Datejs from "./../../external/date"
+import Datejs from "./../../external/date";
 
 var tomorrow = Date.parse("tomorrow").toString("MM-dd-yyyy");
 var maxDate = Date.parse("+1year").toString("MM-dd-yyyy");
@@ -33,6 +33,8 @@ export default class PaintingFrontDoor extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            Bearer: this.props.navigation.state.params.Bearer,
+            User: this.props.navigation.state.params.User,
             quantity: "0",
             date: tomorrow,
             isLoading: true,
@@ -48,12 +50,13 @@ export default class PaintingFrontDoor extends Component {
     componentDidMount() {
         //Se realiza la petición a la API para obtener los precios del servicio
         return fetch(
-            "http://192.168.2.104:8000/api/consultarPaintingFrontDoor/",
+            "http://192.168.2.104:8000/api/v1/consultarPaintingFrontDoor/",
             {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
-                    "Content-type": "application/json"
+                    "Content-type": "application/json",
+                    Authorization: this.state.Bearer
                 }
             }
         )
@@ -170,7 +173,12 @@ export default class PaintingFrontDoor extends Component {
                                     }}
                                 />
                             </Item>
-                            <Total total={this.state.propsTotal} date={this.state.date} service={8} />
+                            <Total
+                                total={this.state.propsTotal}
+                                date={this.state.date}
+                                service={8}
+                                bearer={this.state.Bearer}
+                            />
                         </Form>
                     </Content>
                     <FooterServiceActive navigation={this.props.navigation} />

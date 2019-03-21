@@ -20,7 +20,7 @@ import Total from "./total";
 import Places from "./places";
 import Datejs from "./../../external/date"
 
-export default class PaintingServices2 extends Component {
+export default class PaintingGarage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -128,7 +128,7 @@ export default class PaintingServices2 extends Component {
                                 }}
                             />
                         </Item>
-                        <Total total={this.state.propsTotal} date={this.state.date} service={7}/>
+                        <Total total={this.state.propsTotal} date={this.state.date} service={7} bearer={this.state.Bearer}/>
                     </Form>
                 </Content>
                 <FooterServiceActive navigation={this.props.navigation} />

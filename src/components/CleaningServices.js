@@ -38,7 +38,10 @@ export default class CleaningServices extends Component {
                     <TouchableOpacity
                         onPress={() =>
                             this.props.navigation.navigate("HomeCleaning", {
-                                navigation: this.props.navigation
+                                navigation: this.props.navigation,
+                                Bearer: this.props.navigation.state.params
+                                    .Bearer,
+                                User: this.props.navigation.state.params.User
                             })
                         }
                     >
@@ -62,7 +65,10 @@ export default class CleaningServices extends Component {
                     <TouchableOpacity
                         onPress={() =>
                             this.props.navigation.navigate("OfficeCleaning", {
-                                navigation: this.props.navigation
+                                navigation: this.props.navigation,
+                                Bearer: this.props.navigation.state.params
+                                    .Bearer,
+                                User: this.props.navigation.state.params.User
                             })
                         }
                     >
@@ -86,7 +92,9 @@ export default class CleaningServices extends Component {
                     {/* <TouchableOpacity
                         onPress={() =>
                             this.props.navigation.navigate("DeepCleaning", {
-                                navigation: this.props.navigation
+                                navigation: this.props.navigation,
+                                Bearer: this.props.navigation.state.params.Bearer,
+            User: this.props.navigation.state.params.User
                             })
                         }
                     >
@@ -110,7 +118,10 @@ export default class CleaningServices extends Component {
                     <TouchableOpacity
                         onPress={() =>
                             this.props.navigation.navigate("GarageCleaning", {
-                                navigation: this.props.navigation
+                                navigation: this.props.navigation,
+                                Bearer: this.props.navigation.state.params
+                                    .Bearer,
+                                User: this.props.navigation.state.params.User
                             })
                         }
                     >

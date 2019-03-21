@@ -26,12 +26,16 @@ import Total from "./total";
 import Places from "./places";
 import Datejs from "./../../external/date";
 
+import fetch from "react-native-fetch-polyfill";
+
 var tomorrow = Date.parse("tomorrow").toString("MM-dd-yyyy");
 var maxDate = Date.parse("+1year").toString("MM-dd-yyyy");
 export default class HomeCleaning extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            Bearer: this.props.navigation.state.params.Bearer,
+            User: this.props.navigation.state.params.User,
             bed: "0",
             bath: "0",
             date: tomorrow,
@@ -47,27 +51,47 @@ export default class HomeCleaning extends Component {
 
     componentDidMount() {
         //Se realiza la petición a la API para obtener los precios del servicio
-        return fetch("http://192.168.2.104:8000/api/consultarHomeCleaning/", {
+        fetch("http://192.168.2.104:8000/api/v1/consultarHomeCleaning/", {
+            timeout: 5000,
             method: "GET",
             headers: {
                 Accept: "application/json",
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                Authorization: this.state.Bearer
             }
         })
             .then(response => response.json())
-            .then(responseJson => {
-                this.setState(
-                    {
-                        prices: responseJson.PrecioServicio,
-                        isLoading: false
-                    },
-                    //Una vez obtenidos los precios del servicio, se calcula el total para la selección actual
-                    function() {
-                        this.calculateTotal();
+            .then(
+                responseJson => {
+                    if (typeof responseJson.Error !== "undefined") {
+                        console.log(
+                            "Houston tenemos un problema, redireccionar a página de error."
+                        );
+                    } else {
+                        this.setState(
+                            {
+                                prices: responseJson.PrecioServicio,
+                                isLoading: false
+                            },
+                            //Una vez obtenidos los precios del servicio, se calcula el total para la selección actual
+                            function() {
+                                this.calculateTotal();
+                            }
+                        );
                     }
-                );
-            })
-            .catch(error => {
+                },
+                err => {
+                    if (err.name === "AbortError") {
+                        console.error(err);
+                        console.error("Me fui a la verga");
+                    }
+                    console.error("Me fui a la verga por otro lado");
+                    console.error(err);
+                }
+            )
+            .catch(function(error) {
+                // network request failed / timeout
+                console.error("Me fui a la verga por otro lado peor");
                 console.error(error);
             });
     }
@@ -236,7 +260,12 @@ export default class HomeCleaning extends Component {
                                     }}
                                 />
                             </Item>
-                            <Total total={this.state.propsTotal} date={this.state.date} service={1} />
+                            <Total
+                                total={this.state.propsTotal}
+                                date={this.state.date}
+                                service={1}
+                                bearer={this.state.Bearer}
+                            />
                         </Form>
                     </Content>
                     <FooterServiceActive navigation={this.props.navigation} />

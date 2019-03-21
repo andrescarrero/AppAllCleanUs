@@ -1,3 +1,4 @@
+import { Root } from "native-base";
 import React, { Component } from "react";
 import {
     StyleSheet,
@@ -16,7 +17,8 @@ import {
     Input,
     Label,
     Button,
-    Icon
+    Icon,
+    Toast
 } from "native-base";
 
 import Services from "./Services";
@@ -31,7 +33,7 @@ import DeepCleaning from "./ServiceDetails/deepCleaning";
 import GarageCleaning from "./ServiceDetails/garageCleaning";
 import PaintingFrontDoor from "./ServiceDetails/paintingFrontDoor";
 import PaintingGarage from "./ServiceDetails/paintingGarage";
-import PaintingServices2 from "./ServiceDetails/paintingServices";
+import PaintServices from "./ServiceDetails/paintServices";
 
 import { createStackNavigator } from "react-navigation";
 
@@ -42,20 +44,136 @@ class Home extends Component {
         super(props);
         this.state = {
             userEmail: "",
-            userPassword: ""
+            userPassword: "",
+            showToast: false,
+            wrongCredentials: false
         };
     }
 
-    login = () => {
-        const { userEmail, userPassword } = this.state;
-        //alert(userEmail);
+    /*
+     *Método que lleva a cabo el Login del usuario
+     */
+    login() {
+        if (
+            this.state.userEmail.length == 0 ||
+            this.state.userPassword.length == 0
+        ) {
+            Toast.show({
+                text: "Indicate username and password",
+                type: "danger",
+                duration: 3000,
+                position: "top"
+            });
 
-        
+            this.setState({
+                wrongCredentials: true
+            });
+        } else {
+            var FormData = require("form-data");
+            var form = new FormData();
+            form.append("grant_type", "password");
+            form.append("client_id", 2);
+            form.append(
+                "client_secret",
+                "UjhkjioIL08ZjySknZ7JUCHOD77N8bwAAj1N8yfP"
+            );
+            form.append("username", this.state.userEmail);
+            form.append("password", this.state.userPassword);
 
-        //alert("aqui estamos");
+            fetch("http://192.168.2.104:8000/oauth/token", {
+                method: "POST",
+                body: form
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    if (typeof responseJson.token_type !== "undefined") {
+                        Toast.show({
+                            text: "Loading",
+                            type: "success",
+                            duration: 3000,
+                            position: "top"
+                        });
 
+                        this.props.navigation.navigate('Services', {
+                            Bearer: "Bearer "+responseJson.access_token
+                          });
+                    } else {
+                        this.setState({
+                            userPassword: "",
+                            wrongCredentials: true
+                        });
+
+                        Toast.show({
+                            text: "Invalid username or password",
+                            type: "danger",
+                            duration: 5000,
+                            position: "top"
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
         Keyboard.dismiss();
-    };
+    }
+
+    /**
+     * Método para definir si se muestra el formulario con errores, o sin errores
+     */
+    WrongOrNormaData() {
+        if (this.state.wrongCredentials) {
+            return (
+                <View>
+                    <Item inlineLabel>
+                        <Item error>
+                            <Label style={styles.textLabel}>Username</Label>
+                            <Input
+                                onChangeText={userEmail =>
+                                    this.setState({ userEmail })
+                                }
+                            />
+                            <Icon name="close-circle" />
+                        </Item>
+                    </Item>
+                    <Item inlineLabel>
+                        <Item error>
+                            <Label style={styles.textLabel}>Password</Label>
+                            <Input
+                                onChangeText={userPassword =>
+                                    this.setState({ userPassword })
+                                }
+                                secureTextEntry={true}
+                            />
+                            <Icon name="close-circle" />
+                        </Item>
+                    </Item>
+                </View>
+            );
+        } else {
+            return (
+                <View>
+                    <Item inlineLabel>
+                        <Label style={styles.textLabel}>Username</Label>
+                        <Input
+                            onChangeText={userEmail =>
+                                this.setState({ userEmail })
+                            }
+                        />
+                    </Item>
+                    <Item inlineLabel>
+                        <Label style={styles.textLabel}>Password</Label>
+                        <Input
+                            onChangeText={userPassword =>
+                                this.setState({ userPassword })
+                            }
+                            secureTextEntry={true}
+                        />
+                    </Item>
+                </View>
+            );
+        }
+    }
 
     render() {
         return (
@@ -65,35 +183,13 @@ class Home extends Component {
                         style={styles.thumbnail}
                         source={require("../images/homeImage.jpg")}
                     />
-                    <Form>
-                        <Item inlineLabel>
-                            <Label style={styles.textLabel}>Username</Label>
-                            <Input
-                                onChangeText={userEmail =>
-                                    this.setState({ userEmail })
-                                }
-                            />
-                        </Item>
-                        <Item inlineLabel>
-                            <Label style={styles.textLabel}>Password</Label>
-                            <Input
-                                onChangeText={userPassword =>
-                                    this.setState({ userPassword })
-                                }
-                                secureTextEntry={true}
-                            />
-                        </Item>
-                    </Form>
+                    <Form>{this.WrongOrNormaData()}</Form>
                     <View style={styles.passHelp}>
                         <Button transparent dark>
                             <Text>Password Help</Text>
                         </Button>
                     </View>
-                    <TouchableOpacity
-                        onPress={() =>
-                            this.props.navigation.navigate("Services")
-                        }
-                    >
+                    <TouchableOpacity onPress={this.login.bind(this)}>
                         <View style={styles.loginButton}>
                             <Image
                                 style={styles.buttonImage}
@@ -147,19 +243,13 @@ const Nav = createStackNavigator(
         GarageCleaning: { screen: GarageCleaning },
         PaintingFrontDoor: { screen: PaintingFrontDoor },
         PaintingGarage: { screen: PaintingGarage },
-        PaintingServices2: { screen: PaintingServices2 }
+        PaintServices: { screen: PaintServices }
     },
     {
         initialRouteName: "Home",
         headerMode: "none"
     }
 );
-
-class IndexApp extends Component {
-    render() {
-        return <Nav />;
-    }
-}
 
 const styles = StyleSheet.create({
     container: {
@@ -245,4 +335,8 @@ const styles = StyleSheet.create({
     }
 });
 
-export default IndexApp;
+export default () => (
+    <Root>
+        <Nav />
+    </Root>
+);

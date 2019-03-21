@@ -38,9 +38,13 @@ export default class PaintingServices extends Component {
                     <TouchableOpacity
                         onPress={() =>
                             this.props.navigation.navigate(
-                                "PaintingServices2",
+                                "PaintServices",
                                 {
-                                    navigation: this.props.navigation
+                                    navigation: this.props.navigation,
+                                    Bearer: this.props.navigation.state.params
+                                        .Bearer,
+                                    User: this.props.navigation.state.params
+                                        .User
                                 }
                             )
                         }
@@ -67,7 +71,11 @@ export default class PaintingServices extends Component {
                             this.props.navigation.navigate(
                                 "PaintingFrontDoor",
                                 {
-                                    navigation: this.props.navigation
+                                    navigation: this.props.navigation,
+                                    Bearer: this.props.navigation.state.params
+                                        .Bearer,
+                                    User: this.props.navigation.state.params
+                                        .User
                                 }
                             )
                         }

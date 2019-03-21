@@ -21,6 +21,50 @@ import FooterServiceActive from "./footer/FooterServiceActive";
 export default class Services extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            Bearer: "",
+            User: ""
+        };
+    }
+    componentDidMount() {
+        //Se realiza la petición a la API para obtener los precios del servicio
+        fetch("http://192.168.2.104:8000/api/user/", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                Authorization: this.props.navigation.state.params.Bearer
+            }
+        })
+            .then(response => response.json())
+            .then(
+                responseJson => {
+                    if (typeof responseJson.id == "undefined") {
+                        console.log(
+                            "Houston tenemos un problema, redireccionar a página de error."
+                        );
+                    } else {
+                        console.log("USER: " + responseJson.id);
+                        this.setState({
+                            User: responseJson.id,
+                            Bearer: this.props.navigation.state.params.Bearer
+                        });
+                    }
+                },
+                err => {
+                    if (err.name === "AbortError") {
+                        console.error(err);
+                        //console.error("Me fui a la verga");
+                    }
+                    //console.error("Me fui a la verga por otro lado");
+                    console.error(err);
+                }
+            )
+            .catch(function(error) {
+                // network request failed / timeout
+                //console.error("Me fui a la verga por otro lado peor");
+                console.error(error);
+            });
     }
     render() {
         return (
@@ -33,7 +77,10 @@ export default class Services extends Component {
                 <Content style={styles.content}>
                     <TouchableOpacity
                         onPress={() =>
-                            this.props.navigation.navigate("CleaningServices")
+                            this.props.navigation.navigate("CleaningServices", {
+                                Bearer: this.state.Bearer,
+                                User: this.state.User
+                            })
                         }
                     >
                         <Card style={styles.cardServices}>
@@ -65,7 +112,10 @@ export default class Services extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() =>
-                            this.props.navigation.navigate("PaintingServices")
+                            this.props.navigation.navigate("PaintingServices", {
+                                Bearer: this.state.Bearer,
+                                User: this.state.User
+                            })
                         }
                     >
                         <Card style={styles.cardServices}>

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 
-import { Text, Item, Input } from "native-base";
+import { Text, Item, Input, Toast } from "native-base";
 
 export default class total extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            Bearer: this.props.bearer,
             cuponText: "",
             cuponId: null,
             cuponTotalPorc: null,
@@ -19,7 +20,8 @@ export default class total extends Component {
             subtotalCalculate: this.props.total,
             discountCalculate: 0,
             cuponCalculate: 0,
-            totalCalculate: 0
+            totalCalculate: 0,
+            showToast: false
         };
     }
 
@@ -36,7 +38,9 @@ export default class total extends Component {
         }
 
         if (prevProps.date !== this.props.date) {
-            this.consultarCupon();
+            if (this.state.cuponText.length === 10) {
+                this.consultarCupon();
+            }
             this.consultarDescuento();
         }
     }
@@ -77,11 +81,12 @@ export default class total extends Component {
      * @memberof total
      */
     consultarDescuento() {
-        return fetch("http://192.168.2.104:8000/api/consultarDescuento", {
+        return fetch("http://192.168.2.104:8000/api/v1/consultarDescuento", {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                Authorization: this.state.Bearer
             },
             body: JSON.stringify({
                 monto: this.props.total,
@@ -135,10 +140,15 @@ export default class total extends Component {
                                             "%"
                                     },
                                     function() {
-                                        this.setearTotal();
+                                        this.setearTotal();                                        
                                     }
                                 );
                             }
+                            Toast.show({
+                                text: "We have a discount for you!",
+                                type: "success",
+                                duration: 2500
+                            })
                         }
                     );
                 }
@@ -151,7 +161,9 @@ export default class total extends Component {
                             discountTotalMont: null,
                             subtotalCalculate: this.props.total,
                             discountCalculate: 0,
-                            totalCalculate: 0
+                            totalCalculate: 0,
+                            discountText:
+                                "This service does not have a current discount"
                         },
                         function() {
                             this.setearTotal();
@@ -172,7 +184,8 @@ export default class total extends Component {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                Authorization: this.state.Bearer                
             },
             body: JSON.stringify({
                 cupon_code: this.state.cuponText,
@@ -218,6 +231,11 @@ export default class total extends Component {
                                     }
                                 );
                             }
+                            Toast.show({
+                                text: "Cupon applied successfully",
+                                type: "success",
+                                duration: 2500
+                            })
                         }
                     );
                 }
@@ -229,12 +247,15 @@ export default class total extends Component {
                             cuponTotalPorc: null,
                             cuponTotalMont: null,
                             cuponCalculate: 0,
-                            totalCalculate: 0,
-                            discountText:
-                                "This service does not have a current discount"
+                            totalCalculate: 0
                         },
                         function() {
                             this.setearTotal();
+                            Toast.show({
+                                text: responseJson.Alerta,
+                                type: "warning",
+                                duration: 2500
+                            })
                         }
                     );
                 }
